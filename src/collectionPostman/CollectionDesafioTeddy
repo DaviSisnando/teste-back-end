@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "4ba168ff-9f1e-46aa-9fa7-930eb27f4d7d",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"davi\",\r\n\t\"email\": \"d@c.com\",\r\n\t\"password\": \"123456\",\r\n\t\"phone\": \"213213\",\r\n\t\"street\": \"rua dsaiodja\",\r\n\t\"city\": \"Fortaleza\",\r\n\t\"state\": \"Ceará\",\r\n\t\"zip\": \"7593957\",\r\n\t\"img\": \"https://images.unsplash.com/photo-1621536816171-72c8ea3d63cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=364&q=80\",\r\n\t\"text\": \"estou fazendo o desafio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Session/Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"b@b.com\",\r\n\t\"password\": \"12346\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/sessions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWQ5MjUwOTk3MWFiNDU1Y2E3MGNhYyIsImlhdCI6MTYyMjAzNzEzOCwiZXhwIjoxNjIyNjQxOTM4fQ.MYUSa4CVAFC_ywVUE26B5AZ5CN08TrZIJoVFL9nnE0s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/users/60afde1a89e19a31c09d493",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"60afde1a89e19a31c09d493"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWQ5MjUwOTk3MWFiNDU1Y2E3MGNhYyIsImlhdCI6MTYyMjAzNzEzOCwiZXhwIjoxNjIyNjQxOTM4fQ.MYUSa4CVAFC_ywVUE26B5AZ5CN08TrZIJoVFL9nnE0s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"davi\",\r\n\t\"email\": \"d@c.com\",\r\n\t\"password\": \"123456\",\r\n\t\"phone\": \"213213\",\r\n\t\"street\": \"rua dsaiodja\",\r\n\t\"city\": \"Fortaleza\",\r\n\t\"state\": \"Ceará\",\r\n\t\"zip\": \"7593957\",\r\n\t\"img\": \"https://images.unsplash.com/photo-1621536816171-72c8ea3d63cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=364&q=80\",\r\n\t\"text\": \"estou fazendo o desafio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/60afde1a89e19a31c09d4935",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"60afde1a89e19a31c09d4935"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWQ5MjUwOTk3MWFiNDU1Y2E3MGNhYyIsImlhdCI6MTYyMjAzNzEzOCwiZXhwIjoxNjIyNjQxOTM4fQ.MYUSa4CVAFC_ywVUE26B5AZ5CN08TrZIJoVFL9nnE0s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/users/60b04723952f9817e09ff50f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"60b04723952f9817e09ff50f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

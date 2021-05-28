@@ -1,0 +1,549 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Teddy backend challenge",
+    "version": "1.0.0",
+    "title": "Teddy challenge"
+  },
+  "tags": [
+    {
+      "name": "user",
+      "description": "Users routes"
+    },
+    {
+      "name": "session",
+      "description": "User login"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Add a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user created",
+            "schema": {
+              "$ref": "#/definitions/UserResponse201"
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "schema": {
+              "$ref": "#/definitions/UserResponse400"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/UserResponse409"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Returns a list of all users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "sucessful operation",
+            "schema": {
+              "$ref": "#/definitions/UserGet"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Returns user found by id",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Token obtained from response after login on /sessions"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of a user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sucessful operation",
+            "schema": {
+              "$ref": "#/definitions/UserResponse201"
+            }
+          },
+          "400": {
+            "description": "wrong id",
+            "schema": {
+              "$ref": "#/definitions/WrongId400"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags":[
+          "user"
+        ],
+        "summary": "Update the user",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Token obtained from response after login on /sessions"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of a user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "User info to be updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sucessful operation",
+            "schema": {
+              "$ref": "#/definitions/UserResponse201"
+            }
+          },
+          "400": {
+            "description": "wrong id",
+            "schema": {
+              "$ref": "#/definitions/WrongId400"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete the user",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Token obtained from response after login on /sessions"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of a user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sucessful operation",
+            "schema": {
+              "$ref": "#/definitions/UserResponse201"
+            }
+          },
+          "400": {
+            "description": "wrong id",
+            "schema": {
+              "$ref": "#/definitions/WrongId400"
+            }
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Login user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user logged in",
+            "schema": {
+              "$ref": "#/definitions/SessionResponse200"
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/SessionResponse401"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "name",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        },
+        "img": {
+          "type": "string",
+          "description": "image url"
+        },
+        "text": {
+          "type": "string",
+          "description": "description about the user"
+        }
+      }
+    },
+    "Session": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "user email"
+        },
+        "password": {
+          "type": "string",
+          "description": "user password"
+        }
+      }
+    },
+    "UserResponse201": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+
+            "_id": {
+              "type": "string",
+              "example": "60afde1a89e19a31c09d4935"
+            },
+            "name": {
+              "type": "string",
+              "example": "davi"
+            },
+            "email": {
+              "type": "string",
+              "example": "c@c.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "$2b$08$ZSyMpatY5m0mEGKP49OuuelhrH3Ke9YnMam7n5wYIBQRmcOXXt/DS"
+            },
+            "phone": {
+              "type": "string",
+              "example": "213213"
+            },
+            "street": {
+              "type": "string",
+              "example": "rua dsaiodja"
+            },
+            "city": {
+              "type": "string",
+              "example": "Fortaleza"
+            },
+            "state": {
+              "type": "string",
+              "example": "Ceará"
+            },
+            "zip": {
+              "type": "string",
+              "example": "7593957"
+            },
+            "img": {
+              "type": "string",
+              "description": "image url",
+              "example": "https://images.unsplash.com/photo-1621536816171-72c8ea3d63cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=364&q=80"
+            },
+            "text": {
+              "type": "string",
+              "description": "description about the user",
+              "example": "estou fazendo o desafio"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "User creation date following ISODate format",
+              "example": "2021-05-27T17:59:54.614Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "User update date following ISODate format",
+              "example": "2021-05-27T17:59:54.614Z"
+            },
+            "__v": {
+              "type": "number",
+              "example": 0
+            }
+          }
+        }
+      }
+    },
+    "UserResponse400": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "ValidatorError"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Path `name` is required."
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Path `name` is required."
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "required"
+                        },
+                        "path": {
+                          "type": "string",
+                          "example": "name"
+                        }
+                      }
+                    },
+                    "kind": {
+                      "type": "string",
+                      "example": "required"
+                    },
+                    "path": {
+                      "type": "string",
+                      "example": "name"
+                    }
+                  }
+                }
+              }
+            },
+            "_message": {
+              "type": "string",
+              "example": "User validation failed"
+            },
+            "name": {
+              "type": "string",
+              "example": "ValidationError"
+            },
+            "message": {
+              "type": "string",
+              "example": "User validation failed: name: Path `name` is required."
+            }
+          }
+        }
+      }
+    },
+    "UserResponse409": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Duplicate key error on field: `email`, with value of: `c@c.com`"
+        }
+      }
+    },
+    "UserGet": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            }
+          },
+          "example": [
+            {
+              "_id": "60ad88b04ca10b333819b35e",
+              "name": "davii",
+              "email": "a@a.com"
+            },
+            {
+              "_id": "60ad92509971ab455ca70cac",
+              "name": "davii",
+              "email": "b@b.com"
+            },
+            {
+              "_id": "60afde1a89e19a31c09d4935",
+              "name": "davii",
+              "email": "c@c.com"
+            }
+          ]
+        }
+      }
+    },
+    "SessionResponse200": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "60ad92509971ab455ca70cac"
+            },
+            "email": {
+              "type": "string",
+              "example": "c@c.com"
+            }
+          }
+        },
+        "token": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYWQ5MjUwOTk3MWFiNDU1Y2E3MGNhYyIsImlhdCI6MTYyMjE1OTY2NiwiZXhwIjoxNjIyNzY0NDY2fQ.L-mwGT37HmWmsA1qRYIXND3y_2RXdgPr6qKSSZ8E2CM"
+        }
+      }
+    },
+    "SessionResponse401": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Invalid email or password."
+        }
+      }
+    },
+    "WrongId400": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "stringValue": {
+              "type": "string",
+              "example": "\"60afde1a89e19a31c09d493\""
+            },
+            "valueType": {
+              "type": "string",
+              "example": "string"
+            },
+            "kind": {
+              "type": "string",
+              "example": "ObjectId"
+            },
+            "value": {
+              "type": "string",
+              "example": "60afde1a89e19a31c09d493"
+            },
+            "path": {
+              "type": "string",
+              "example": "_id"
+            },
+            "reason": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string",
+              "example": "CastError"
+            },
+            "message": {
+              "type": "string",
+              "example": "Cast to ObjectId failed for value \"60afde1a89e19a31c09d493\" (type string) at path \"_id\" for model \"User\""
+            }
+          }
+        }
+      }
+    }
+  }
+}
